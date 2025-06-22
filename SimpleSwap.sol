@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 /**
  * @title ISimpleSwapVerifier
- * @notice Interfaz para el contrato Verificador del curso.
+ * @notice The interface for the course's Verifier contract.
  */
 interface ISimpleSwapVerifier {
     function addLiquidity(address tokenA, address tokenB, uint amountA, uint amountB) external returns (uint liquidity);
@@ -18,8 +18,8 @@ interface ISimpleSwapVerifier {
 
 /**
  * @title SimpleSwap
- * @author Guillermo Siara
- * @notice Implementa las funcionalidades de un router de exchange descentralizado.
+ * @author Guillermo Siaira
+ * @notice Implements the core functionalities of a decentralized exchange router.
  */
 contract SimpleSwap {
     using SafeMath for uint;
@@ -31,7 +31,7 @@ contract SimpleSwap {
     }
 
     /**
-     * @notice Calcula la cantidad óptima de un token basada en el otro.
+     * @notice Calculates the optimal amount of one token based on the other.
      */
     function _quote(uint amountA, uint reserveA, uint reserveB) internal pure returns (uint amountB) {
         require(amountA > 0, "SimpleSwap: INSUFFICIENT_AMOUNT");
@@ -40,7 +40,7 @@ contract SimpleSwap {
     }
     
     /**
-     * @notice Calcula la cantidad de salida para una cantidad de entrada y reservas dadas.
+     * @notice Calculates the output amount for a given input amount and reserves.
      */
     function getAmountOut(uint amountIn, uint reserveIn, uint reserveOut) public pure returns (uint amountOut) {
         require(amountIn > 0, "SimpleSwap: INSUFFICIENT_INPUT_AMOUNT");
@@ -53,7 +53,7 @@ contract SimpleSwap {
     }
 
     /**
-     * @notice Añade liquidez a un par de tokens ERC-20.
+     * @notice Adds liquidity to an ERC-20 pair pool.
      */
     function addLiquidity(
         address tokenA,
@@ -98,11 +98,16 @@ contract SimpleSwap {
         address pair = ISimpleSwapVerifier(verifier).getPair(tokenA, tokenB);
         require(pair != address(0), "SimpleSwap: PAIR_NOT_FOUND");
         
-        IERC20(pair).transfer(to, IERC20(pair).balanceOf(address(this)));
+        // This logic assumes the LP tokens are minted to this contract.
+        // It then transfers them to the final recipient `to`.
+        uint lpBalance = IERC20(pair).balanceOf(address(this));
+        if (lpBalance > 0) {
+           IERC20(pair).transfer(to, lpBalance);
+        }
     }
 
     /**
-     * @notice Retira liquidez de un pool.
+     * @notice Removes liquidity from a pool.
      */
     function removeLiquidity(
         address tokenA,
@@ -131,7 +136,7 @@ contract SimpleSwap {
     }
 
     /**
-     * @notice Intercambia una cantidad exacta de tokens de entrada por tantos tokens de salida como sea posible.
+     * @notice Swaps an exact amount of input tokens for as many output tokens as possible.
      */
     function swapExactTokensForTokens(
         uint amountIn,
@@ -159,7 +164,7 @@ contract SimpleSwap {
     }
 
     /**
-     * @notice Obtiene el precio de tokenA en términos de tokenB.
+     * @notice Gets the price of tokenA in terms of tokenB.
      */
     function getPrice(address tokenA, address tokenB) external view returns (uint price) {
         (uint reserveA, uint reserveB) = ISimpleSwapVerifier(verifier).getReserves(tokenA, tokenB);
