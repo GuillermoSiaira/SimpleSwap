@@ -1,4 +1,2 @@
-swapVerifier.sol: https://sepolia.etherscan.io/address/0x9f8f02dab384dddf1591c3366069da3fb0018220#code
-simpleSwap.sol: https://sepolia.etherscan.io/address/0x787d5bc6637a542c4566db013373c7260231015d
-
-h
+swapVerifier.sol: 0x9f8F02DAB384DDdf1591C3366069Da3Fb0018220
+SimpleSwap.sol: 0x49D7f965b83A04368F2961a3406c4a72a1b8AB31
