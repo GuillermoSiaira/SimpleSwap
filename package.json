@@ -1,0 +1,28 @@
+{
+  "name": "simpleswap",
+  "version": "1.0.0",
+  "description": "SimpleSwap - A DeFi Router Implementation Project Overview This repository contains SimpleSwap.sol, a smart contract that functions as a router for a decentralized exchange (DEX). The project was developed as a final assignment for the ETH Kipu course, module 3. It replicates the core logic and functionalities of a Uniswap v2 Router, designed to interact with a specific Verifier contract that simulates the roles of a Factory and Pair in a real DEX ecosystem.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuillermoSiaira/SimpleSwap.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/GuillermoSiaira/SimpleSwap/issues"
+  },
+  "homepage": "https://github.com/GuillermoSiaira/SimpleSwap#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.3.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
+    "hardhat": "^2.25.0"
+  }
+}
